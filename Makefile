@@ -1,10 +1,11 @@
 BUILDDIR:=$(shell pwd)/build
+TARGET:=Main
 
-all: src/Main
+all: src/$(TARGET)
 
-src/Main: src/*.hs
+src/$(TARGET): src/*.hs src/Parser.hs src/Lexer.hs
 	test -d $(BUILDDIR) || (rm -f $(BUILDDIR) && mkdir $(BUILDDIR))
-	(cd src;ghc --make Main -outputdir $(BUILDDIR))
+	(cd src;ghc --make $(TARGET) -outputdir $(BUILDDIR))
 
 src/Parser.hs:src/Parser.y
 	happy --info $< -o $@
@@ -12,8 +13,8 @@ src/Parser.hs:src/Parser.y
 src/Lexer.hs:src/Lexer.x
 	alex $< -o$@
 
-test: src/Main
+test: src/$(TARGET)
 	$< < examples/Simple.mdl
 
 clean:
-	rm -rf $(BUILDDIR) src/Lexer.hs src/Parser.hs
+	rm -rf $(BUILDDIR) src/Lexer.hs src/Parser.{hs,info} src/$(TARGET)
