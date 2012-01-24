@@ -1,0 +1,22 @@
+module Test {
+	object program implementing main_t {
+
+		method main() {
+			m0(42);                           // possible deadlock!
+			send (10, Inherit, m0(42));       // Ok!
+		}
+
+		method m0(int_t id) {
+			int_t z <- m1(id);                // request
+			closure_t closure = m1(id+9);     // binding
+			int_t y <- send(10, 10, closure); // action
+		}
+
+		method int_t m1(int_t output) {
+		}
+
+		method m2() {
+		}
+
+	}
+}

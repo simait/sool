@@ -1,0 +1,15 @@
+model Program {
+	import SRPKernel.kernel.send as send;
+	
+	instance Program implementing Main {
+
+		action helloWorld() {
+			// TODO: Hello World?
+		}
+
+		action main() {
+			send(helloWorld);
+		}
+
+	}
+}

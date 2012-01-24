@@ -1,0 +1,21 @@
+module KernelInterface {
+
+	import Types;
+
+	type enum_t  of {Inherit;}					inherit_t;
+	type any_t from (rangeof(inherit_t) + rangeof(uint32_t))	baseline_t;
+
+	type enum_t  of {Infinity;}					infinity_t;
+	type any_t from (rangeof(infinity_t) + rangeof(baseline_t))	deadline_t;
+
+	type tuple_t of {baseline_t, deadline_t}			window_t;
+
+	interface KernelInterface {
+
+		method		timerIRQ();
+		method		send(closure_t, window_t);
+		method bool_t	ok();
+
+	}
+
+}

@@ -1,0 +1,19 @@
+module Simple {
+	object program implementing main_t {
+
+		method start() {
+		}
+
+		method m0(int_t id0, int_t id1) {
+			int_t t0;
+			int_t t1;
+		}
+
+		method int_t m1(int_t output) {
+		}
+
+		method m2() {
+		}
+
+	}
+}

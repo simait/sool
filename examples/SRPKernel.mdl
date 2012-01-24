@@ -1,0 +1,71 @@
+module SRPKernel {
+
+	import Timer;
+	import KernelInterface;
+
+	type integer_t from [0..127]			kerneltype_t;
+	type integer_t from [0, 2, 4, 8, 16, 32, 64]	anothertype_t;
+
+	type struct_t of {
+		uint8_t		out;
+		uint32_t	uuid;
+	} kernelstruct_t;
+
+	type struct_t of {
+		baseline_t	baseline;
+		deadline_t	deadline;
+		closure_t of ()	closure; // Untraceable, not something we want.
+	} message_t;
+
+	instance kernel implementing KernelInterface {
+
+		integer_t				integer0; // Unbounded integers, not supported?!?
+		integer_t from [0..3]			integer1;
+		integer_t from rangeof(kerneltype_t)	integer2;
+
+		array_t of typeof(integer1)		array0[16];
+		array_t of integer_t from [0..255] 	array2[32];
+		array_t of kerneltype_t			array1[64];
+		array_t of integer_t			array3[128]; // Array of unbounded integers... not supported(i.e., unbounded integers)?!?
+
+		struct_t of {
+			uint8_t id;
+			uint8_t test1;
+		} struct0;
+		kernelstruct_t struct1;
+
+		method timerIRQ() {
+			// TODO: Handle the interrupt?
+		};
+
+		method send(closure_t of () closure, window_t window=(Inherit, Inherit)) {
+			// TODO: Schedule message...
+		}
+
+		method bool_t ok() {
+
+			// NOT sane to use indexing on method to get typeof.
+			typeof(filter[1]) pred0 = method bool_t (uint8_t) {
+				return false;
+			}
+
+			// This is just plain _ugly_ syntax :S
+			closure_t of bool_t (uint8_t) pred1 = method bool_t (uint8_t) {
+				return true;
+			}
+
+			// This might work, but magic types isn't really a good idea.
+			closure_t of auto_t pred2 = method bool_t (uint8_t) {
+				return true;
+			}
+
+			typeof(array0) tmp0 = filter(pred0, array0);
+			typeof(array0) tmp1 = filter(pred1, array0);
+			typeof(array0) tmp2 = filter(pred2, array0);
+			typeof(array0) tmp3 = filter(method bool_t (uint8_t) {return true;}, array0);
+
+		}
+
+	}
+
+}
