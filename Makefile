@@ -7,7 +7,7 @@ src/Main: src/*.hs
 	(cd src;ghc --make Main -outputdir $(BUILDDIR))
 
 src/Parser.hs:src/Parser.y
-	happy $< -o $@
+	happy --info $< -o $@
 
 src/Lexer.hs:src/Lexer.x
 	alex $< -o$@

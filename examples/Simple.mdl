@@ -1,12 +1,16 @@
 module Simple {
-	object program implementing main_t {
+	class program() implementing main_t {
 
-		method start() {
+		method main(array_t argv) {
 		}
 
-		method m0(int_t id0, int_t id1) {
+		method m0(int_t p0, int_t p1) {
 			int_t t0;
 			int_t t1;
+
+			t0 = m4();
+			t1 = m5(p0);
+			m6(p0, p1);
 		}
 
 		method int_t m1(int_t output) {

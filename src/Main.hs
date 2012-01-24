@@ -1,13 +1,10 @@
 module Main where
 
-import PP
-import Text.PrettyPrint
-import Lexer
+import Syntax
 import Parser
 
 main = do
 	input <- getContents
-	let parseTree = mdl (alexScanTokens input)
-	--putStrLn ("parseTree: " ++ (show parseTree))
-	putStrLn (render (toDoc (toSyntax parseTree)))
-	--print "done"
+	let syntax = parseMDL input
+	let pretty = prettySyntax syntax
+	putStrLn pretty
