@@ -1,6 +1,12 @@
 module Simple {
 	class program() implementing main_t {
 
+		function int_t test(int_t x, int_t y) {
+			int_t result;
+			result := x+y;
+			return result;
+		}
+
 		method main(array_t argv) {
 		}
 
@@ -8,8 +14,11 @@ module Simple {
 			int_t t0;
 			int_t t1;
 
-			t0 = m4();
-			t1 = m5(p0);
+			x = (9 + 9) * 4;
+			y := x;
+
+			t0 := m4();
+			t1 := m5(p0);
 			m6(p0, p1);
 		}
 

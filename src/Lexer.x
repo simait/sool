@@ -17,6 +17,8 @@ tokens :-
 	"class"				{ \p s -> TClass p }
 	"implementing"			{ \p s -> TImplementing p }
 	"method"			{ \p s -> TMethod p }
+	"function"			{ \p s -> TFunction p }
+	"return"			{ \p s -> TReturn p }
 	@type				{ \p s -> TType p s }		-- NOTE: Order between @type and @ident!
 	@ident				{ \p s -> TIdent p s }
 	@integer			{ \p s -> TInteger p s }
@@ -27,8 +29,14 @@ tokens :-
 	")"				{ \p s -> TRightParen p }
 	"{"				{ \p s -> TLeftBrace p }
 	"}"				{ \p s -> TRightBrace p }
-	"="				{ \p s -> TAssign p }
-	"<-"				{ \p s -> TInvoke p }
+	":="				{ \p s -> TAssign p }
+	"="				{ \p s -> TEq p }
+	"+"				{ \p s -> TAdd p }
+	"-"				{ \p s -> TSub p }
+	"*"				{ \p s -> TMul p }
+	"/"				{ \p s -> TDiv p }
+	"<"				{ \p s -> TLt p }
+	">"				{ \p s -> TGt p }
 
 {
 data Token =
@@ -36,6 +44,8 @@ data Token =
 	TClass AlexPosn			|
 	TImplementing AlexPosn		|
 	TMethod AlexPosn		|
+	TFunction AlexPosn		|
+	TReturn AlexPosn		|
 	TIdent AlexPosn String		|
 	TType AlexPosn String		|
 	TInteger AlexPosn String	|
@@ -47,13 +57,20 @@ data Token =
 	TLeftBrace AlexPosn		|
 	TRightBrace AlexPosn		|
 	TAssign AlexPosn		|
-	TInvoke AlexPosn
+	TEq AlexPosn			|
+	TAdd AlexPosn			|
+	TSub AlexPosn			|
+	TMul AlexPosn			|
+	TDiv AlexPosn			|
+	TLt AlexPosn			|
+	TGt AlexPosn
 	deriving (Eq, Show)
 
 tokenPosn (TModule p) = p
 tokenPosn (TClass p) = p
 tokenPosn (TImplementing p) = p
 tokenPosn (TMethod p) = p
+tokenPosn (TFunction p) = p
 tokenPosn (TIdent p _) = p
 tokenPosn (TType p _) = p
 tokenPosn (TInteger p _) = p
@@ -64,7 +81,14 @@ tokenPosn (TLeftParen p) = p
 tokenPosn (TRightParen p) = p
 tokenPosn (TLeftBrace p) = p
 tokenPosn (TRightBrace p) = p
-tokenPosn (TInvoke p) = p
+tokenPosn (TAssign p) = p
+tokenPosn (TEq p) = p
+tokenPosn (TAdd p) = p
+tokenPosn (TSub p) = p
+tokenPosn (TMul p) = p
+tokenPosn (TDiv p) = p
+tokenPosn (TLt p) = p
+tokenPosn (TGt p) = p
 --tokenPosn t = error ("tokenPosn not implemented for " ++ (show t))
 
 }
